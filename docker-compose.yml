@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: secure_postgres
+    environment:
+      POSTGRES_DB: secure_docs_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data:Z
+      # UPDATED PATH: Pointing to where your files actually are
+      - ./postgres/certs:/var/lib/postgresql/certs:Z
+    command: >
+      -c ssl=on
+      -c ssl_cert_file=/var/lib/postgresql/certs/server.crt
+      -c ssl_key_file=/var/lib/postgresql/certs/server.key
+
+
+  # Identity Provider
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: secure_keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key
+      KC_HOSTNAME: localhost
+    ports:
+      - "8081:8080"
+      - "8444:8443"
+    depends_on:
+      - postgres
+    volumes:
+      - ./keycloak-themes:/opt/keycloak/themes
+      - ./keycloak/certs/server.crt:/opt/keycloak/conf/server.crt:Z
+      - ./keycloak/certs/server.key:/opt/keycloak/conf/server.key:Z
+
+  # Malware Scanning
+  clamav:
+    image: clamav/clamav:latest
+    container_name: secure_clamav
+    ports:
+      - "3310:3310"
+    healthcheck:
+        test: ["CMD", "clamdscan", "/version"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  # Secrets Management
+  vault:
+    image: hashicorp/vault:latest
+    container_name: secure_vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_ADDR: 'http://0.0.0.0:8200'
+      VAULT_API_ADDR: 'http://0.0.0.0:8200'
+      VAULT_DEV_ROOT_TOKEN_ID: root-token
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./vault/config:/vault/config:Z
+      - vault_data:/vault/file:Z
+
+volumes:
+  pg_data:
+  vault_data:

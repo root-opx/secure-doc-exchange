@@ -1,0 +1,54 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    key-alias: secure-doc-exchange
+
+
+spring:
+  application:
+    name: secure-exchange
+  
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  
+  # Database Configuration (SSL Enabled)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/secure_docs_db?ssl=true&sslmode=verify-ca&sslfactory=org.postgresql.ssl.DefaultJavaSSLFactory
+    username: admin
+    password: admin_password # In Phase 5, we will move this to Vault!
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # Vault Configuration
+  cloud:
+    vault:
+      uri: http://localhost:8200
+      token: root-token
+      kv:
+        enabled: true
+        backend: secret
+
+  # OAuth2 / Keycloak Configuration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://localhost:8444/realms/SecureExchange
+          jwk-set-uri: https://localhost:8444/realms/SecureExchange/protocol/openid-connect/certs
+
+# Java SSL Truststore Configuration
+jvm:
+  truststore: classpath:truststore.p12
+  truststore-password: changeit

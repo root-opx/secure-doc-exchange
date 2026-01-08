@@ -1,0 +1,93 @@
+{
+    "realm": "SecureExchange",
+    "enabled": true,
+    "roles": {
+        "realm": [
+            {
+                "name": "admin",
+                "description": "Administrator Role"
+            }
+        ]
+    },
+    "groups": [
+        {
+            "name": "IT",
+            "path": "/IT"
+        },
+        {
+            "name": "HR",
+            "path": "/HR"
+        }
+    ],
+    "clients": [
+        {
+            "clientId": "secure-app",
+            "enabled": true,
+            "protocol": "openid-connect",
+            "publicClient": true,
+            "redirectUris": [
+                "http://localhost:5173/*",
+                "https://localhost:5173/*"
+            ],
+            "webOrigins": [
+                "http://localhost:5173",
+                "https://localhost:5173"
+            ],
+            "directAccessGrantsEnabled": true,
+            "protocolMappers": [
+                {
+                    "name": "group-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-group-membership-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "full.path": "false",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "groups",
+                        "userinfo.token.claim": "true"
+                    }
+                }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "username": "alice",
+            "enabled": true,
+            "email": "alice@example.com",
+            "firstName": "Alice",
+            "lastName": "User",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "password",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "admin"
+            ],
+            "groups": [
+                "/IT"
+            ]
+        },
+        {
+            "username": "bob",
+            "enabled": true,
+            "email": "bob@example.com",
+            "firstName": "Bob",
+            "lastName": "User",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "password",
+                    "temporary": false
+                }
+            ],
+            "groups": [
+                "/HR"
+            ]
+        }
+    ]
+}

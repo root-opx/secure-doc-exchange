@@ -1,0 +1,135 @@
+/* GLOBAL RESET & FONT */
+body {
+    background-color: #0d0d0d !important;
+    background-image: none !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #00ff00 !important;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+/* LOGIN CARD CONTAINER */
+.login-pf-page .card-pf {
+    background-color: #000000 !important;
+    border: 2px solid #00ff00 !important;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3) !important;
+    border-radius: 0 !important;
+    padding: 40px !important;
+    max-width: 500px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* HIDE DEFAULT HEADER TEXT */
+#kc-header,
+#kc-header-wrapper {
+    display: none !important;
+}
+
+/* CUSTOM TITLE INSIDE CARD */
+h1#kc-page-title {
+    color: #00ff00 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    text-transform: uppercase;
+    font-size: 1.5rem !important;
+    border-bottom: 2px solid #00ff00;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: 0;
+    text-align: center;
+}
+
+h1#kc-page-title::before {
+    content: "> SYSTEM_LOGIN";
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* INPUT FIELDS */
+input.form-control,
+input[type="text"],
+input[type="password"] {
+    background-color: #000000 !important;
+    background-image: none !important;
+    border: 1px solid #00ff00 !important;
+    color: #00ff00 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    border-radius: 0 !important;
+    height: 40px !important;
+    box-shadow: none !important;
+}
+
+input.form-control:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+    box-shadow: 0 0 8px #00ff00 !important;
+    border-color: #00ff00 !important;
+    outline: none !important;
+}
+
+/* LABELS */
+label {
+    color: #00ff00 !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* BUTTONS */
+input.btn-primary,
+button.btn-primary {
+    background-color: #000000 !important;
+    background-image: none !important;
+    border: 2px solid #00ff00 !important;
+    color: #00ff00 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem !important;
+    border-radius: 0 !important;
+    padding: 10px 20px !important;
+    width: 100%;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input.btn-primary:hover,
+button.btn-primary:hover {
+    background-color: #00ff00 !important;
+    color: #000000 !important;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+/* LINKS (Forgot password, etc) */
+a,
+a:visited {
+    color: #008800 !important;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+a:hover {
+    color: #00ff00 !important;
+    text-decoration: underline;
+}
+
+/* ALERTS & ERRORS */
+.alert {
+    background-color: #0d0d0d !important;
+    border: 1px solid red !important;
+    color: red !important;
+    border-radius: 0 !important;
+}
+
+.pficon {
+    display: none;
+    /* Hide default icons in alerts */
+}
