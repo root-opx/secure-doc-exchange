@@ -1,3 +1,10 @@
+# General Secrets
+*.p12
+*.jks
+*.key
+*.pem
+*.crt
+
 # IDEs and Editors
 .idea/
 .vscode/
@@ -8,6 +15,7 @@ Thumbs.db
 
 # Java / Maven (Backend)
 target/
+**/target/
 *.class
 *.jar
 *.war
