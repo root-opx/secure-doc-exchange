@@ -1,11 +1,11 @@
-# General Secrets
+
 *.p12
 *.jks
 *.key
 *.pem
 *.crt
 
-# IDEs and Editors
+
 .idea/
 .vscode/
 *.swp
@@ -13,7 +13,7 @@
 .DS_Store
 Thumbs.db
 
-# Java / Maven (Backend)
+
 target/
 **/target/
 *.class
@@ -23,7 +23,7 @@ target/
 *.log
 backend/logs/
 
-# Node / Vite (Frontend)
+
 node_modules/
 dist/
 npm-debug.log*
@@ -36,8 +36,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Docker / Infrastructure
-# Ignore generated certificates and keys (Security Best Practice)
+
 **/certs/*.key
 **/certs/*.crt
 **/certs/*.pem
@@ -45,19 +44,16 @@ yarn-error.log*
 postgres/certs/
 keycloak/certs/
 
-# Postgres
-# If you mapped local data folders, ignore them. 
-# based on docker-compose, data is in named volumes, but just in case:
+
 postgres/data/
 postgres/pgadmin/
 
-# Vault
+
 vault/file/
 vault/logs/
-# Keep config if it is generic, but ignore if it has secrets. 
-# specific ignore for vault data if local:
+
 vault/data/
 
-# OS
+
 .DS_Store
 Thumbs.db
